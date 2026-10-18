@@ -1,0 +1,27 @@
+
+{
+  "id": "./",
+  "name": "EduSpark - Learn, Play and Grow",
+  "short_name": "EduSpark",
+  "description": "Learn new skills, practise lessons, play educational games and organise your studies.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a1224",
+  "theme_color": "#101c35",
+  "categories": [
+    "education",
+    "productivity",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
