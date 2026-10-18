@@ -255,14 +255,18 @@ function recordStudyDay() {
 function awardXP(points) {
   data.xp += Math.max(0, Number(points) || 0);
 }
+
 function addLessonCompletion(id) {
   if (data.lessonsCompleted.includes(id)) return false;
+
+  recordStudyDay();
   data.lessonsCompleted.push(id);
   data.lessonsToday = (data.lessonsToday || 0) + 1;
   awardXP(20);
-  recordStudyDay();
+
   return true;
 }
+
 function getBadges() {
   const complete = data.lessonsCompleted.length;
   return [
