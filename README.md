@@ -1,84 +1,61 @@
 
-# EduSpark
+# EduSpark — Learn, Play and Grow
 
-**Learn, Play and Grow**
+EduSpark is a responsive learning platform prototype for exploring lessons, practising quizzes, tracking progress and organising study tasks.
 
-EduSpark is a responsive student learning platform designed to
-help learners organise their studies, practise quizzes, explore
-lessons and track their progress.
+## Current features
 
-## Features
+- Responsive dashboard and learning library
+- Firebase email/password and Google authentication
+- Per-account Firestore learning-data storage
+- Lesson completion, XP, streaks and achievements
+- Educational quiz game and practice exam
+- Study planner with task dates and completion tracking
+- Personal project portfolio
+- Local study guidance templates
+- Optional browser-based OCR for images
+- Image and PDF preview
+- Learning preferences and JSON data export
+- PWA manifest, app icon and service-worker caching
+- Firestore rules that protect user data by UID
 
-- Responsive student dashboard
-- Lesson library and lesson categories
-- Educational quiz games
-- Exam practice interface
-- Study planner
-- Student portfolio
-- Progress and XP tracking
-- Study assistant interface
-- Image and PDF preview interface
-- Settings and data export
-- Progressive Web App (PWA) support
-- Basic app-shell caching for offline access
+## Files
 
-## Technology
+- `index.html` — application interface
+- `style.css` — responsive visual design
+- `app.js` — authentication, lessons, learning activities and data handling
+- `firestore.rules` — database access rules
+- `manifest.json` — PWA metadata
+- `sw.js` — app-shell cache and offline navigation fallback
+- `icon.svg` — application icon
 
-- HTML
-- CSS
-- JavaScript
-- LocalStorage
-- Web App Manifest
-- Service Worker
-- Optional future Firebase integration
+## Firebase setup
 
-## Run locally
+1. Open the Firebase project `eduspark-c8c5b`.
+2. Enable Email/Password under Authentication > Sign-in method.
+3. Enable Google sign-in and configure the authorised domains.
+4. Create a Cloud Firestore database.
+5. Publish the supplied `firestore.rules`.
+6. Add your deployed website domain to Firebase Authentication authorised domains.
+7. Test sign-in, sign-out, account isolation and cloud sync using separate test accounts.
 
-1. Download or clone this repository.
-2. Keep all application files in the root folder.
-3. Open `index.html` in a browser.
-4. For service-worker and PWA testing, serve the project
-   through localhost or HTTPS.
+The Firebase web configuration identifies the project. Database rules and authentication protect the data; the client configuration is not a replacement for security rules.
 
-## GitHub Pages
+## Run and publish
 
-1. Open repository Settings.
-2. Select Pages.
-3. Choose the deployment branch.
-4. Select the root folder.
-5. Save and wait for deployment.
-6. Open the generated HTTPS website link.
+Use a local web server for development. For GitHub Pages, keep the application files in the repository root and enable Pages in repository settings.
+
+Test the deployed HTTPS site on mobile and desktop. Installability and service-worker support require a compatible browser and secure context.
 
 ## Important limitations
 
-The initial frontend version is a working prototype.
-LocalStorage data stays in the current browser and is not
-automatically synchronised across accounts or devices.
+- The study assistant currently provides local study guidance templates, not generative AI.
+- Image OCR uses an optional browser library and may misread maths, handwriting or diagrams.
+- PDF files can be previewed where the browser supports them; PDF text extraction is not configured.
+- Parent-child linking, shared classrooms, moderated community features and secure admin workflows require additional backend implementation.
+- Teacher and admin roles must be granted by a trusted owner-controlled process.
+- Payment processing, subscription enforcement and certificate verification are not implemented.
+- Firestore sync requires internet access. Local browser storage and cloud storage are different.
+- The PWA cache does not guarantee every remote dependency or feature works offline.
 
-The study assistant does not provide real AI responses unless
-a secure backend is connected.
-
-Image and PDF previews do not perform actual OCR by themselves.
-Firebase authentication, cloud synchronisation, classroom sharing,
-secure administration and payments require further implementation
-and testing before production use.
-
-Never put private API keys or payment secrets in frontend files.
-
-## Security
-
-Configure Firestore rules to match the actual data structure.
-Test access with Firebase Emulator or the Firebase Rules
-Playground before using real student data.
-
-## Future improvements
-
-- Firebase Authentication and cloud sync
-- Secure AI study assistant
-- OCR and document question extraction
-- Teacher and classroom tools
-- Parent portal
-- Accessible learning content
-- Subscription and payment integration
-- Automated tests and error reporting
-
+Never put private AI keys, payment secrets or administrator credentials in frontend files.
