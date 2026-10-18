@@ -1,0 +1,124 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function validProfile(data) {
+      return data.keys().hasOnly([
+        'displayName',
+        'grade',
+        'curriculum',
+        'language',
+        'role',
+        'createdAt',
+        'updatedAt'
+      ])
+      && (!('displayName' in data)
+          || data.displayName is string)
+      && (!('grade' in data)
+          || data.grade is string)
+      && (!('curriculum' in data)
+          || data.curriculum is string)
+      && (!('language' in data)
+          || data.language is string)
+      && (!('role' in data)
+          || data.role == 'student');
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+
+      allow create: if isOwner(uid)
+        && validProfile(request.resource.data)
+        && (!('role' in request.resource.data)
+            || request.resource.data.role == 'student');
+
+      allow update: if isOwner(uid)
+        && validProfile(request.resource.data)
+        && request.resource.data.diff(resource.data)
+          .affectedKeys()
+          .hasOnly([
+            'displayName',
+            'grade',
+            'curriculum',
+            'language',
+            'updatedAt'
+          ]);
+
+      allow delete: if false;
+
+      match /progress/{docId} {
+        allow read, create, update: if isOwner(uid)
+          && request.resource.data.keys().hasOnly([
+            'completedLessons',
+            'xp',
+            'streak',
+            'lastActive',
+            'quizResults',
+            'updatedAt'
+          ]);
+        allow delete: if isOwner(uid);
+      }
+
+      match /planner/{docId} {
+        allow read, write: if isOwner(uid)
+          && request.resource.data.keys().hasOnly([
+            'title',
+            'subject',
+            'date',
+            'done',
+            'createdAt',
+            'updatedAt'
+          ]);
+      }
+
+      match /flashcards/{docId} {
+        allow read, write: if isOwner(uid)
+          && request.resource.data.keys().hasOnly([
+            'front',
+            'back',
+            'subject',
+            'createdAt',
+            'updatedAt'
+          ]);
+      }
+
+      match /revision/{docId} {
+        allow read, write: if isOwner(uid);
+      }
+
+      match /projects/{docId} {
+        allow read, write: if isOwner(uid)
+          && request.resource.data.keys().hasOnly([
+            'title',
+            'description',
+            'code',
+            'createdAt',
+            'updatedAt'
+          ]);
+      }
+    }
+
+    match /aiRateLimits/{uid} {
+      allow read, write: if false;
+    }
+
+    match /courses/{courseId} {
+      allow read: if signedIn();
+      allow write: if signedIn()
+        && request.auth.token.admin == true;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
