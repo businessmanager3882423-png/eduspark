@@ -7,11 +7,11 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    function isOwner(uid) {
+    function owner(uid) {
       return signedIn() && request.auth.uid == uid;
     }
 
-    function validProfile(data) {
+    function profileValid(data) {
       return data.keys().hasOnly([
         'displayName',
         'grade',
@@ -21,28 +21,53 @@ service cloud.firestore {
         'createdAt',
         'updatedAt'
       ])
-      && (!('displayName' in data)
-          || data.displayName is string)
-      && (!('grade' in data)
-          || data.grade is string)
-      && (!('curriculum' in data)
-          || data.curriculum is string)
-      && (!('language' in data)
-          || data.language is string)
-      && (!('role' in data)
-          || data.role == 'student');
+      && (!('displayName' in data) || data.displayName is string)
+      && (!('grade' in data) || data.grade is string)
+      && (!('curriculum' in data) || data.curriculum is string)
+      && (!('language' in data) || data.language is string)
+      && (!('role' in data) || data.role == 'student');
+    }
+
+    function validProgress(data) {
+      return data.keys().hasOnly([
+        'completedLessons',
+        'xp',
+        'streak',
+        'lastActive',
+        'quizResults',
+        'updatedAt'
+      ]);
+    }
+
+    function validPlanner(data) {
+      return data.keys().hasOnly([
+        'title',
+        'subject',
+        'date',
+        'done',
+        'createdAt',
+        'updatedAt'
+      ]);
+    }
+
+    function validFlashcard(data) {
+      return data.keys().hasOnly([
+        'front',
+        'back',
+        'subject',
+        'createdAt',
+        'updatedAt'
+      ]);
     }
 
     match /users/{uid} {
-      allow read: if isOwner(uid);
+      allow read: if owner(uid);
 
-      allow create: if isOwner(uid)
-        && validProfile(request.resource.data)
-        && (!('role' in request.resource.data)
-            || request.resource.data.role == 'student');
+      allow create: if owner(uid)
+        && profileValid(request.resource.data);
 
-      allow update: if isOwner(uid)
-        && validProfile(request.resource.data)
+      allow update: if owner(uid)
+        && profileValid(request.resource.data)
         && request.resource.data.diff(resource.data)
           .affectedKeys()
           .hasOnly([
@@ -56,47 +81,35 @@ service cloud.firestore {
       allow delete: if false;
 
       match /progress/{docId} {
-        allow read, create, update: if isOwner(uid)
-          && request.resource.data.keys().hasOnly([
-            'completedLessons',
-            'xp',
-            'streak',
-            'lastActive',
-            'quizResults',
-            'updatedAt'
-          ]);
-        allow delete: if isOwner(uid);
+        allow read: if owner(uid);
+        allow create, update: if owner(uid)
+          && validProgress(request.resource.data);
+        allow delete: if owner(uid);
       }
 
       match /planner/{docId} {
-        allow read, write: if isOwner(uid)
-          && request.resource.data.keys().hasOnly([
-            'title',
-            'subject',
-            'date',
-            'done',
-            'createdAt',
-            'updatedAt'
-          ]);
+        allow read: if owner(uid);
+        allow create, update: if owner(uid)
+          && validPlanner(request.resource.data);
+        allow delete: if owner(uid);
       }
 
       match /flashcards/{docId} {
-        allow read, write: if isOwner(uid)
-          && request.resource.data.keys().hasOnly([
-            'front',
-            'back',
-            'subject',
-            'createdAt',
-            'updatedAt'
-          ]);
+        allow read: if owner(uid);
+        allow create, update: if owner(uid)
+          && validFlashcard(request.resource.data);
+        allow delete: if owner(uid);
       }
 
       match /revision/{docId} {
-        allow read, write: if isOwner(uid);
+        allow read: if owner(uid);
+        allow create, update: if owner(uid);
+        allow delete: if owner(uid);
       }
 
       match /projects/{docId} {
-        allow read, write: if isOwner(uid)
+        allow read: if owner(uid);
+        allow create, update: if owner(uid)
           && request.resource.data.keys().hasOnly([
             'title',
             'description',
@@ -104,6 +117,7 @@ service cloud.firestore {
             'createdAt',
             'updatedAt'
           ]);
+        allow delete: if owner(uid);
       }
     }
 
