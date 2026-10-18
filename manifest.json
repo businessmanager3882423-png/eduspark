@@ -1,23 +1,19 @@
-
 {
-  "id": "./",
-  "name": "EduSpark - Learn, Play and Grow",
+  "id": "/",
+  "name": "EduSpark — Learn Beyond Limits",
   "short_name": "EduSpark",
-  "description": "Explore lessons, practise skills and organise your learning.",
-  "lang": "en",
-  "start_url": "./",
-  "scope": "./",
+  "description": "Learn, practise, revise and track your learning progress.",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "orientation": "any",
-  "background_color": "#0a1224",
+  "background_color": "#101c35",
   "theme_color": "#101c35",
-  "categories": ["education", "productivity", "utilities"],
   "icons": [
     {
-      "src": "./icon.svg",
+      "src": "/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }
