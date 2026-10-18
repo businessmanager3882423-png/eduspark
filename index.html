@@ -1,604 +1,301 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101c35">
-  <meta name="description" content="EduSpark - Learn, play, practise and grow.">
-  <title>EduSpark | Learn. Play. Grow.</title>
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="EduSpark helps learners study, practise, play and grow.">
+  <title>EduSpark — Learn, Play and Grow</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-<div class="app-shell">
-
-  <aside class="sidebar" id="sidebar">
-    <a href="#" class="brand" data-view="dashboard">
-      <span class="brand-logo">E</span>
-      <span>Edu<span class="accent">Spark</span>
-        <small>LEARN · PLAY · GROW</small>
-      </span>
-    </a>
-
-    <p class="nav-heading">LEARNING SPACE</p>
-
-    <nav class="navigation">
-      <button class="nav-link active" data-view="dashboard">⌂ Dashboard</button>
-      <button class="nav-link" data-view="learn">▤ Learn</button>
-      <button class="nav-link" data-view="ai-tools">✦ AI Study Suite</button>
-      <button class="nav-link" data-view="scan">▧ Scan & Clean</button>
-      <button class="nav-link" data-view="games">♙ Learning Games</button>
-      <button class="nav-link" data-view="exams">◷ Exam Simulator</button>
-      <button class="nav-link" data-view="planner">☷ Study Planner</button>
-      <button class="nav-link" data-view="community">◎ Community</button>
-      <button class="nav-link" data-view="classroom">▦ Classroom</button>
-      <button class="nav-link" data-view="career">↗ Career & Skills</button>
-      <button class="nav-link" data-view="portfolio">◇ My Portfolio</button>
-      <button class="nav-link" data-view="rewards">★ Rewards</button>
-    </nav>
-
-    <div class="sidebar-bottom">
-      <div class="connection-card">
-        <span class="connection-dot" id="connectionDot"></span>
-        <div>
-          <b id="networkStatus">Checking connection</b>
-          <small>Learning workspace</small>
+  <section id="authView" class="auth-layout">
+    <div class="auth-intro">
+      <a class="brand brand-large" href="./">
+        <span class="brand-mark">E</span>
+        <span>EduSpark<small>LEARN · PLAY · GROW</small></span>
+      </a>
+      <div class="auth-message">
+        <span class="eyebrow">YOUR LEARNING JOURNEY STARTS HERE</span>
+        <h1>Make every day a little <span>smarter.</span></h1>
+        <p>Explore lessons, practise new skills and build a learning habit that lasts.</p>
+        <div class="auth-points">
+          <span>✓ Personal learning progress</span>
+          <span>✓ Lessons, quizzes and study tools</span>
+          <span>✓ Access across your signed-in devices</span>
         </div>
       </div>
-      <button class="nav-link" data-view="settings">⚙ Settings</button>
-      <button class="nav-link" data-view="admin">♜ Owner Admin</button>
-      <button class="nav-link" id="logoutBtn">↪ Sign out</button>
-      <small class="sidebar-version">EduSpark Preview · v1.0.0</small>
+      <p class="muted auth-foot">Curiosity has no limits.</p>
     </div>
-  </aside>
 
-  <main class="main-area">
-    <header class="topbar">
-      <button class="icon-button mobile-menu" id="menuBtn"
-        aria-label="Open navigation">☰</button>
-
-      <div class="breadcrumbs">
-        <small>Workspace</small>
-        <b id="pageTitle">Dashboard</b>
+    <div class="auth-panel">
+      <div class="auth-mobile-brand brand">
+        <span class="brand-mark">E</span><span>EduSpark</span>
       </div>
-
-      <div class="top-actions">
-        <div class="search-box">
-          <span>⌕</span>
-          <input id="globalSearch" type="search"
-            placeholder="Search lessons and tools...">
+      <div class="auth-tabs">
+        <button id="loginTab" class="tab active" type="button">Sign in</button>
+        <button id="signupTab" class="tab" type="button">Create account</button>
+      </div>
+      <h2 id="authTitle">Welcome back</h2>
+      <p id="authSubtitle" class="muted">Sign in to continue learning.</p>
+      <form id="authForm">
+        <div id="nameField" class="field hidden">
+          <label for="authName">Display name</label>
+          <input id="authName" autocomplete="name" maxlength="60" placeholder="Your name">
         </div>
-        <button class="icon-button" id="installBtn" hidden
-          aria-label="Install EduSpark">⇩</button>
-        <button class="avatar" id="profileAvatar"
-          aria-label="Open settings">U</button>
-      </div>
-    </header>
-
-    <!-- DASHBOARD -->
-    <section class="view active" id="view-dashboard">
-      <div class="welcome-row">
-        <div>
-          <p class="eyebrow">YOUR LEARNING SPACE</p>
-          <h1>Make today <span class="accent">count.</span></h1>
-          <p class="muted">Small steps every day lead to big results.</p>
+        <div class="field">
+          <label for="authEmail">Email address</label>
+          <input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com">
         </div>
-        <span class="date-chip" id="todayLabel">Your dashboard</span>
-      </div>
-
-      <div class="hero-card">
-        <div class="hero-copy">
-          <span class="pill light-pill">YOUR NEXT ADVENTURE</span>
-          <h2>Curiosity is your superpower.</h2>
-          <p>Learn something new, challenge your mind, and build skills
-            that stay with you.</p>
-          <button class="button button-white" data-go="learn">
-            Continue learning →
-          </button>
+        <div class="field">
+          <label for="authPassword">Password</label>
+          <input id="authPassword" type="password" minlength="6" autocomplete="current-password" required placeholder="At least 6 characters">
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="hero-orbit orbit-one"></div>
-          <div class="hero-orbit orbit-two"></div>
-          <div class="hero-book">📚</div>
-          <span class="spark spark-one">✦</span>
-          <span class="spark spark-two">✧</span>
-        </div>
-      </div>
-
-      <div class="stats-grid">
-        <article class="stat-card">
-          <span class="stat-icon purple">✦</span>
-          <p>Total XP</p>
-          <strong id="xpStat">120</strong>
-          <small>Knowledge points</small>
-        </article>
-        <article class="stat-card">
-          <span class="stat-icon orange">♨</span>
-          <p>Day streak</p>
-          <strong id="streakStat">3 days</strong>
-          <small>Build a learning habit</small>
-        </article>
-        <article class="stat-card">
-          <span class="stat-icon green">✓</span>
-          <p>Lessons completed</p>
-          <strong id="lessonsStat">4</strong>
-          <small>Your learning progress</small>
-        </article>
-        <article class="stat-card">
-          <span class="stat-icon blue">◎</span>
-          <p>Weekly goal</p>
-          <strong id="goalStat">2 / 5</strong>
-          <small>Learning sessions</small>
-        </article>
-      </div>
-
-      <div class="content-grid">
-        <article class="panel">
-          <div class="panel-heading">
-            <div>
-              <h3>Continue learning</h3>
-              <p class="muted">Pick up where you left off.</p>
-            </div>
-            <button class="text-button" data-go="learn">View all →</button>
-          </div>
-          <div class="course-list" id="continueList"></div>
-        </article>
-
-        <article class="panel">
-          <div class="panel-heading">
-            <div>
-              <h3>Today's mission</h3>
-              <p class="muted">Every step counts.</p>
-            </div>
-            <span class="big-icon">🎯</span>
-          </div>
-          <div class="mission-box">
-            <span class="pill">DAILY CHALLENGE</span>
-            <h4>Complete a learning activity</h4>
-            <p>Finish a lesson or answer a practice question.</p>
-            <div class="progress-track">
-              <span id="missionProgress" style="width:40%"></span>
-            </div>
-            <small id="missionText">2 of 5 weekly sessions</small>
-            <button class="button button-primary full-width" data-go="games">
-              Start a challenge
-            </button>
-          </div>
-        </article>
-      </div>
-
-      <article class="panel section-gap">
-        <div class="panel-heading">
-          <div>
-            <h3>Explore EduSpark</h3>
-            <p class="muted">Tools to help you study smarter.</p>
-          </div>
-        </div>
-        <div class="quick-grid">
-          <button class="quick-card" data-go="ai-tools">
-            <span class="quick-icon purple">✦</span>
-            <b>AI Study Suite</b>
-            <small>Explain, plan and practise</small>
-          </button>
-          <button class="quick-card" data-go="scan">
-            <span class="quick-icon green">▧</span>
-            <b>Scan & Clean</b>
-            <small>Open study documents</small>
-          </button>
-          <button class="quick-card" data-go="exams">
-            <span class="quick-icon orange">◷</span>
-            <b>Exam Simulator</b>
-            <small>Test your knowledge</small>
-          </button>
-          <button class="quick-card" data-go="planner">
-            <span class="quick-icon blue">☷</span>
-            <b>Study Planner</b>
-            <small>Organise your goals</small>
-          </button>
-        </div>
-      </article>
-    </section>
-
-    <!-- LEARNING LIBRARY -->
-    <section class="view" id="view-learn">
-      <div class="page-heading">
-        <p class="eyebrow">KNOWLEDGE LIBRARY</p>
-        <h1>Explore and <span class="accent">learn.</span></h1>
-        <p class="muted">Explore subjects and build strong foundations.</p>
-      </div>
-      <div class="filter-row">
-        <input class="field" id="lessonSearch" placeholder="Search subjects...">
-        <select class="field" id="levelFilter">
-          <option value="all">All levels</option>
-          <option>Primary</option><option>Middle</option>
-          <option>Secondary</option><option>College</option>
-          <option>University</option><option>Skills</option>
-        </select>
-        <select class="field" id="curriculumFilter">
-          <option value="all">All curricula</option>
-          <option>Pakistan</option><option>UK</option><option>US</option>
-          <option>International</option><option>Skills</option>
-        </select>
-      </div>
-      <div class="lesson-grid" id="lessonGrid"></div>
-    </section>
-
-    <!-- AI TOOLS -->
-    <section class="view" id="view-ai-tools">
-      <div class="page-heading">
-        <p class="eyebrow">YOUR STUDY COMPANION</p>
-        <h1>AI Study <span class="accent">Suite.</span></h1>
-        <p class="muted">Prepare explanations, quizzes, notes and study plans.</p>
-      </div>
-      <div class="notice">
-        <b>Preview mode:</b> real AI responses require a secure backend.
-        Never put an AI provider secret key in frontend JavaScript.
-      </div>
-      <div class="tool-layout">
-        <article class="panel">
-          <h3>Study assistant</h3>
-          <p class="muted">Choose a task and enter your topic.</p>
-          <label class="field-label" for="aiTask">Study task</label>
-          <select class="field full-field" id="aiTask">
-            <option>Explain a concept</option>
-            <option>Step-by-step solver</option>
-            <option>Generate a quiz</option>
-            <option>Make revision notes</option>
-            <option>Create a study plan</option>
-            <option>Writing and grammar</option>
-            <option>Coding help</option>
-            <option>Explain or translate</option>
+        <div id="roleField" class="field hidden">
+          <label for="requestedRole">Account type request</label>
+          <select id="requestedRole">
+            <option value="student">Student</option>
+            <option value="parent">Parent / guardian</option>
+            <option value="teacher">Teacher</option>
           </select>
-          <div class="two-fields">
-            <div>
-              <label class="field-label" for="aiLevel">Education level</label>
-              <select class="field full-field" id="aiLevel">
-                <option>Secondary</option><option>Primary</option>
-                <option>Middle</option><option>College</option>
-                <option>University</option><option>Professional / Skills</option>
-              </select>
-            </div>
-            <div>
-              <label class="field-label" for="aiCurriculum">Curriculum</label>
-              <select class="field full-field" id="aiCurriculum">
-                <option>Pakistan</option><option>UK</option><option>US</option>
-                <option>International / IB</option><option>India</option>
-                <option>Other / not sure</option>
-              </select>
-            </div>
-          </div>
-          <label class="field-label" for="aiQuestion">Question or topic</label>
-          <textarea class="field full-field textarea" id="aiQuestion" rows="5"
-            placeholder="Example: Explain photosynthesis in simple steps..."></textarea>
-          <div class="action-row">
-            <button class="button button-primary" id="aiSubmit">Prepare request</button>
-            <button class="button button-outline" id="aiClear">Clear</button>
-          </div>
-        </article>
-        <article class="panel">
-          <h3>Study workspace</h3>
-          <div class="empty-state" id="aiOutput">
-            <span class="empty-icon">✦</span>
-            <h4>Your study space is ready</h4>
-            <p>Enter a topic to prepare your study request.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- SCAN -->
-    <section class="view" id="view-scan">
-      <div class="page-heading">
-        <p class="eyebrow">NOTES & DOCUMENTS</p>
-        <h1>Scan. Clean. <span class="accent">Understand.</span></h1>
-        <p class="muted">Preview study images and PDF documents.</p>
-      </div>
-      <div class="tool-layout">
-        <article class="panel">
-          <h3>Upload study material</h3>
-          <p class="muted">Use a clear, well-lit image for better results.</p>
-          <label class="upload-zone" for="scanFile">
-            <span class="upload-icon">⇧</span>
-            <b>Choose an image or PDF</b>
-            <small>JPG, PNG or PDF</small>
-            <input type="file" id="scanFile" accept="image/*,.pdf,application/pdf">
-          </label>
-          <div class="action-row">
-            <button class="button button-primary" id="scanPrepare">Preview file</button>
-            <button class="button button-outline" id="scanClear">Clear</button>
-          </div>
-          <p class="tiny muted">OCR, handwriting recognition and cleaned PDF export
-            need a document-processing service.</p>
-        </article>
-        <article class="panel">
-          <h3>Scan workspace</h3>
-          <div id="scanOutput" class="empty-state">
-            <span class="empty-icon">▧</span>
-            <h4>No file selected</h4>
-            <p>Your document preview will appear here.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- GAMES -->
-    <section class="view" id="view-games">
-      <div class="page-heading">
-        <p class="eyebrow">PLAY WITH PURPOSE</p>
-        <h1>Learning <span class="accent">Games.</span></h1>
-        <p class="muted">Practise skills through quick challenges.</p>
-      </div>
-      <div class="game-layout">
-        <article class="panel">
-          <div class="panel-heading">
-            <div><h3>Number Sprint</h3><p class="muted">Solve a question to earn XP.</p></div>
-            <span class="big-icon">🧠</span>
-          </div>
-          <div class="quiz-question" id="gameQuestion">7 × 8 = ?</div>
-          <div class="answer-grid" id="gameAnswers"></div>
-          <p id="gameFeedback" class="muted" aria-live="polite">Choose an answer.</p>
-          <button class="button button-primary" id="nextQuestion">New question</button>
-        </article>
-        <article class="panel">
-          <h3>Your game stats</h3>
-          <div class="mini-stat"><span>Correct answers</span><b id="correctCount">0</b></div>
-          <div class="mini-stat"><span>XP earned here</span><b id="gameXP">0</b></div>
-          <div class="mini-stat"><span>Best streak</span><b id="bestStreak">0</b></div>
-          <p class="tiny muted">More games can include memory puzzles, word games,
-            science quests and coding challenges.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- EXAMS -->
-    <section class="view" id="view-exams">
-      <div class="page-heading">
-        <p class="eyebrow">PRACTICE WITH PURPOSE</p>
-        <h1>Exam <span class="accent">Simulator.</span></h1>
-        <p class="muted">Try a sample test and review your result.</p>
-      </div>
-      <article class="panel exam-panel">
-        <div class="panel-heading">
-          <div><h3>Quick knowledge check</h3><p class="muted">Sample questions.</p></div>
-          <span class="pill">5 QUESTIONS</span>
+          <small class="muted">Parent and teacher permissions must be approved separately.</small>
         </div>
-        <div id="examQuestions"></div>
-        <button class="button button-primary" id="submitExam">Submit answers</button>
-        <div id="examResult" class="result-box" hidden></div>
-      </article>
-    </section>
+        <button id="authSubmit" class="btn btn-primary btn-full" type="submit">Sign in</button>
+      </form>
+      <button id="googleBtn" class="btn btn-outline btn-full google-btn" type="button">
+        <span class="google-g">G</span> Continue with Google
+      </button>
+      <button id="forgotBtn" class="text-btn" type="button">Forgot password?</button>
+      <p class="auth-legal">By continuing, you agree to use EduSpark respectfully and safely.</p>
+      <p id="authError" class="error-text" role="alert"></p>
+    </div>
+  </section>
 
-    <!-- PLANNER -->
-    <section class="view" id="view-planner">
-      <div class="page-heading">
-        <p class="eyebrow">YOUR NEXT STEPS</p>
-        <h1>Study <span class="accent">Planner.</span></h1>
-        <p class="muted">Organise your learning goals and tasks.</p>
+  <div id="appView" class="app-shell hidden">
+    <aside id="sidebar" class="sidebar">
+      <a class="brand sidebar-brand" href="#" data-go="dashboard">
+        <span class="brand-mark">E</span><span>EduSpark<small>LEARN · PLAY · GROW</small></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav id="mainNav" class="main-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-view="dashboard"><span>◫</span> Dashboard</button>
+        <button class="nav-link" data-view="learn"><span>▤</span> Learn</button>
+        <button class="nav-link" data-view="ai-tools"><span>✧</span> Study assistant</button>
+        <button class="nav-link" data-view="scan"><span>▧</span> Question scanner</button>
+        <button class="nav-link" data-view="games"><span>♧</span> Learning games</button>
+        <button class="nav-link" data-view="exams"><span>✓</span> Practice exams</button>
+        <button class="nav-link" data-view="planner"><span>▦</span> Study planner</button>
+        <button class="nav-link" data-view="classroom"><span>▣</span> Classroom</button>
+        <button class="nav-link" data-view="community"><span>◎</span> Community & safety</button>
+        <button class="nav-link" data-view="career"><span>↗</span> Skills & careers</button>
+        <button class="nav-link" data-view="portfolio"><span>▧</span> My portfolio</button>
+        <button class="nav-link" data-view="rewards"><span>✦</span> Achievements</button>
+        <button class="nav-link" data-view="parent"><span>♡</span> Parent portal</button>
+        <button class="nav-link" data-view="teacher"><span>▥</span> Teacher studio</button>
+        <button class="nav-link" data-view="admin"><span>⚙</span> Administration</button>
+        <button class="nav-link" data-view="settings"><span>☷</span> Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="connection"><span id="connectionDot" class="status-dot"></span><span id="networkStatus">Checking connection…</span></div>
+        <div class="sidebar-user">
+          <div id="profileAvatar" class="avatar">S</div>
+          <div class="user-summary"><strong id="sidebarName">Student</strong><small id="sidebarRole">Student account</small></div>
+          <button id="logoutBtn" class="icon-btn" title="Sign out" aria-label="Sign out">↪</button>
+        </div>
       </div>
-      <div class="planner-layout">
-        <article class="panel">
-          <h3>Add a study task</h3>
-          <form id="taskForm" class="stack-form">
-            <label class="field-label" for="taskTitle">Task title</label>
-            <input class="field full-field" id="taskTitle" required
-              placeholder="e.g. Revise algebra">
-            <div class="two-fields">
-              <div>
-                <label class="field-label" for="taskDate">Due date</label>
-                <input class="field full-field" id="taskDate" type="date">
-              </div>
-              <div>
-                <label class="field-label" for="taskSubject">Subject</label>
-                <select class="field full-field" id="taskSubject">
-                  <option>Mathematics</option><option>Science</option>
-                  <option>English</option><option>Computer Science</option>
-                  <option>Business</option><option>Other</option>
-                </select>
-              </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button id="menuBtn" class="icon-btn menu-btn" aria-label="Open navigation">☰</button>
+        <div><span class="eyebrow">YOUR LEARNING SPACE</span><h1 id="pageTitle">Dashboard</h1></div>
+        <div class="topbar-actions">
+          <label class="search-box"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search lessons..." aria-label="Search lessons"></label>
+          <button id="installBtn" class="btn btn-outline hidden" type="button">Install app</button>
+          <button class="icon-btn" data-go="settings" title="Settings" aria-label="Settings">⚙</button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <section id="view-dashboard" class="view active">
+          <div class="hero">
+            <div class="hero-copy">
+              <span class="eyebrow light-eyebrow">A NEW DAY TO DISCOVER</span>
+              <h2 id="welcomeTitle">Small steps. Big progress.</h2>
+              <p id="welcomeText">Build your skills one lesson at a time.</p>
+              <button class="btn btn-light" data-go="learn">Explore lessons <span>→</span></button>
             </div>
-            <button class="button button-primary" type="submit">Add task</button>
-          </form>
-        </article>
-        <article class="panel">
-          <div class="panel-heading">
-            <div><h3>Your tasks</h3><p class="muted">Saved on this device.</p></div>
-            <span class="pill" id="taskCount">0 tasks</span>
+            <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="book-emoji">✦</div><span class="float-star star-one">✦</span><span class="float-star star-two">✧</span></div>
           </div>
-          <div id="taskList" class="task-list"></div>
-        </article>
-      </div>
-    </section>
 
-    <!-- COMMUNITY -->
-    <section class="view" id="view-community">
-      <div class="page-heading">
-        <p class="eyebrow">LEARN TOGETHER</p>
-        <h1>Student <span class="accent">Community.</span></h1>
-        <p class="muted">Build positive learning habits together.</p>
-      </div>
-      <div class="notice"><b>Preview:</b> real public posts, study rooms and
-        competitions need secure accounts, reporting and moderation.</div>
-      <div class="community-grid">
-        <article class="panel"><span class="big-icon">🌍</span><h3>Study rooms</h3><p class="muted">Topic-based study sessions and group learning.</p><span class="pill">Planned integration</span></article>
-        <article class="panel"><span class="big-icon">🏆</span><h3>Team challenges</h3><p class="muted">Friendly competitions based on learning.</p><span class="pill">Preview</span></article>
-        <article class="panel"><span class="big-icon">🛡️</span><h3>Safety centre</h3><p class="muted">Reporting, blocking and moderation workflows.</p><span class="pill">Safety first</span></article>
-      </div>
-    </section>
+          <div class="stats-grid">
+            <article class="stat-card"><span class="stat-icon purple">✦</span><div><p>Total XP</p><strong id="xpStat">0</strong><small>Learning points</small></div></article>
+            <article class="stat-card"><span class="stat-icon orange">♨</span><div><p>Study streak</p><strong id="streakStat">0 days</strong><small>Keep showing up</small></div></article>
+            <article class="stat-card"><span class="stat-icon teal">▤</span><div><p>Lessons completed</p><strong id="lessonsStat">0</strong><small>Knowledge gained</small></div></article>
+            <article class="stat-card"><span class="stat-icon blue">◎</span><div><p>Daily goal</p><strong id="goalStat">0 / 3</strong><small>Lessons completed today</small></div></article>
+          </div>
 
-    <!-- CLASSROOM -->
-    <section class="view" id="view-classroom">
-      <div class="page-heading">
-        <p class="eyebrow">TEACHERS & SCHOOLS</p>
-        <h1>Classroom <span class="accent">Studio.</span></h1>
-        <p class="muted">A workspace for lessons, assignments and progress.</p>
-      </div>
-      <div class="notice"><b>Setup required:</b> classroom memberships and
-        student records need secure, role-based database rules.</div>
-      <div class="community-grid">
-        <article class="panel"><span class="big-icon">📋</span><h3>Assignments</h3><p class="muted">Tasks, due dates and grading rubrics.</p></article>
-        <article class="panel"><span class="big-icon">🧑‍🏫</span><h3>Teacher Studio</h3><p class="muted">Prepare lessons, notes and quizzes for review.</p></article>
-        <article class="panel"><span class="big-icon">📈</span><h3>Progress insights</h3><p class="muted">Learning analytics with appropriate permissions.</p></article>
-      </div>
-    </section>
+          <div class="content-grid dashboard-grid">
+            <section class="panel">
+              <div class="section-heading"><div><span class="eyebrow">PICK UP WHERE YOU LEFT OFF</span><h3>Continue learning</h3></div><button class="text-btn" data-go="learn">View all →</button></div>
+              <div id="continueList" class="continue-list"></div>
+            </section>
+            <section class="panel mission-panel">
+              <span class="eyebrow">TODAY'S MISSION</span><h3>Make learning a habit</h3><p id="missionText">Complete 3 lessons to reach your daily goal.</p>
+              <div class="progress-track"><span id="missionProgress" style="width:0%"></span></div>
+              <div class="progress-caption"><span>Daily progress</span><strong id="missionPercent">0%</strong></div>
+              <button class="btn btn-primary btn-full" data-go="learn">Start a lesson</button>
+            </section>
+          </div>
 
-    <!-- CAREER -->
-    <section class="view" id="view-career">
-      <div class="page-heading">
-        <p class="eyebrow">BUILD YOUR FUTURE</p>
-        <h1>Career & <span class="accent">Skills.</span></h1>
-        <p class="muted">Turn learning into practical skills.</p>
-      </div>
-      <div class="lesson-grid" id="careerGrid"></div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section class="view" id="view-portfolio">
-      <div class="page-heading">
-        <p class="eyebrow">YOUR ACHIEVEMENTS</p>
-        <h1>My <span class="accent">Portfolio.</span></h1>
-        <p class="muted">Record projects, skills and milestones.</p>
-      </div>
-      <div class="planner-layout">
-        <article class="panel">
-          <h3>Add a project</h3>
-          <form id="projectForm" class="stack-form">
-            <label class="field-label" for="projectName">Project name</label>
-            <input class="field full-field" id="projectName" required
-              placeholder="e.g. My first website">
-            <label class="field-label" for="projectDesc">Description</label>
-            <textarea class="field full-field textarea" id="projectDesc" rows="4"
-              placeholder="What did you build or learn?"></textarea>
-            <button class="button button-primary" type="submit">Save project</button>
-          </form>
-        </article>
-        <article class="panel">
-          <h3>Saved projects</h3>
-          <div id="projectList" class="task-list"></div>
-        </article>
-      </div>
-    </section>
-
-    <!-- REWARDS -->
-    <section class="view" id="view-rewards">
-      <div class="page-heading">
-        <p class="eyebrow">CELEBRATE PROGRESS</p>
-        <h1>Rewards & <span class="accent">Achievements.</span></h1>
-        <p class="muted">Celebrate effort, consistency and progress.</p>
-      </div>
-      <div class="stats-grid">
-        <article class="stat-card"><span class="stat-icon purple">✦</span><p>Total XP</p><strong id="rewardXP">120</strong></article>
-        <article class="stat-card"><span class="stat-icon orange">♨</span><p>Day streak</p><strong id="rewardStreak">3 days</strong></article>
-        <article class="stat-card"><span class="stat-icon green">★</span><p>Achievements</p><strong id="badgeCount">2</strong></article>
-      </div>
-      <div class="community-grid section-gap">
-        <article class="panel"><span class="big-icon">🌱</span><h3>Getting Started</h3><p class="muted">Explore your learning space.</p><span class="pill">Unlocked</span></article>
-        <article class="panel"><span class="big-icon">🔥</span><h3>Consistency</h3><p class="muted">Build a regular learning habit.</p><span class="pill">In progress</span></article>
-        <article class="panel"><span class="big-icon">🧩</span><h3>Problem Solver</h3><p class="muted">Complete practice challenges.</p><span class="pill">In progress</span></article>
-      </div>
-    </section>
-
-    <!-- SETTINGS -->
-    <section class="view" id="view-settings">
-      <div class="page-heading">
-        <p class="eyebrow">MAKE IT YOURS</p>
-        <h1>Account <span class="accent">Settings.</span></h1>
-        <p class="muted">Personalise your learning experience.</p>
-      </div>
-      <div class="settings-layout">
-        <article class="panel">
-          <h3>Learner profile</h3>
-          <form id="settingsForm" class="stack-form">
-            <label class="field-label" for="displayName">Display name</label>
-            <input class="field full-field" id="displayName" placeholder="Your name">
-            <div class="two-fields">
-              <div><label class="field-label" for="profileLevel">Education level</label>
-                <select class="field full-field" id="profileLevel">
-                  <option>Primary</option><option>Middle</option><option>Secondary</option>
-                  <option>College</option><option>University</option><option>Professional / Skills</option>
-                </select>
-              </div>
-              <div><label class="field-label" for="profileLanguage">Language</label>
-                <select class="field full-field" id="profileLanguage">
-                  <option>English</option><option>Urdu</option>
-                </select>
-              </div>
+          <section class="section-block"><div class="section-heading"><div><span class="eyebrow">QUICK ACCESS</span><h3>What would you like to do?</h3></div></div>
+            <div class="feature-grid">
+              <button class="feature-card" data-go="ai-tools"><span class="feature-icon lavender">✧</span><strong>Study assistant</strong><small>Explore a topic or get study guidance</small><span class="feature-arrow">→</span></button>
+              <button class="feature-card" data-go="scan"><span class="feature-icon mint">▧</span><strong>Question scanner</strong><small>Prepare a photo or document</small><span class="feature-arrow">→</span></button>
+              <button class="feature-card" data-go="exams"><span class="feature-icon peach">✓</span><strong>Practice exams</strong><small>Test what you have learned</small><span class="feature-arrow">→</span></button>
+              <button class="feature-card" data-go="planner"><span class="feature-icon sky">▦</span><strong>Study planner</strong><small>Organise your next study session</small><span class="feature-arrow">→</span></button>
             </div>
-            <label class="field-label" for="profileCurriculum">Curriculum</label>
-            <select class="field full-field" id="profileCurriculum">
-              <option>Pakistan</option><option>UK</option><option>US</option>
-              <option>International / IB</option><option>India</option><option>Other / not sure</option>
-            </select>
-            <label class="check-row">
-              <input id="religionOptIn" type="checkbox">
-              I want optional religion-related learning recommendations.
-            </label>
-            <p class="tiny muted">Private by default; change this preference any time.</p>
-            <button class="button button-primary" type="submit">Save preferences</button>
+          </section>
+        </section>
+
+        <section id="view-learn" class="view">
+          <div class="page-intro"><span class="eyebrow">EXPLORE AND PRACTISE</span><h2>Your learning library</h2><p>Choose a level, explore a topic and test your understanding.</p></div>
+          <div class="filter-bar">
+            <input id="lessonSearch" type="search" placeholder="Search subjects or lessons…">
+            <select id="levelFilter"><option value="all">All levels</option><option>Early Learning</option><option>Primary</option><option>Middle</option><option>Secondary</option><option>College</option><option>University</option><option>Skills</option></select>
+            <select id="curriculumFilter"><option value="all">All learning tracks</option><option>International</option><option>Pakistan</option><option>UK</option><option>US</option><option>Skills</option></select>
+          </div>
+          <div id="lessonGrid" class="lesson-grid"></div>
+        </section>
+
+        <section id="view-ai-tools" class="view">
+          <div class="page-intro"><span class="eyebrow">LEARN WITH GUIDANCE</span><h2>Study assistant</h2><p>Organise your question and get study guidance. Generative AI requires a secured backend connection.</p></div>
+          <div class="notice notice-info"><strong>AI service status</strong><p id="aiStatus">No AI backend is connected. This page can provide local study guidance but will not pretend to generate live AI answers.</p></div>
+          <div class="panel form-panel">
+            <div class="field"><label for="aiTask">What do you need help with?</label><select id="aiTask"><option value="explain">Explain a topic</option><option value="solver">Maths problem</option><option value="quiz">Create practice questions</option><option value="notes">Revision notes</option><option value="plan">Study plan</option><option value="writing">Writing mentor</option><option value="coding">Coding mentor</option><option value="translate">Simplify or translate text</option></select></div>
+            <div class="form-row"><div class="field"><label for="aiLevel">Your level</label><select id="aiLevel"><option>Early Learning</option><option>Primary</option><option>Middle</option><option selected>Secondary</option><option>College</option><option>University</option><option>Skills</option></select></div><div class="field"><label for="aiLanguage">Response language</label><select id="aiLanguage"><option>English</option><option>Urdu</option><option>Simple English</option></select></div></div>
+            <div class="field"><label for="aiQuestion">Your question or topic</label><textarea id="aiQuestion" rows="5" maxlength="5000" placeholder="For example: Explain fractions with a simple example…"></textarea></div>
+            <div class="button-row"><button id="aiSubmit" class="btn btn-primary" type="button">Get study guidance</button><button id="aiClear" class="btn btn-outline" type="button">Clear</button></div>
+            <div id="aiOutput" class="output-panel hidden" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section id="view-scan" class="view">
+          <div class="page-intro"><span class="eyebrow">FROM PAGE TO PRACTICE</span><h2>Question scanner</h2><p>Choose an image or PDF to preview it. OCR extraction requires the optional OCR libraries and a supported browser.</p></div>
+          <div class="panel form-panel">
+            <label class="upload-zone" for="scanFile"><span class="upload-symbol">＋</span><strong>Choose an image or PDF</strong><small>PNG, JPG, WebP or PDF · up to 10 MB</small><input id="scanFile" type="file" accept="image/png,image/jpeg,image/webp,application/pdf"></label>
+            <div id="scanPreview" class="scan-preview hidden"></div>
+            <div class="button-row"><button id="scanPrepare" class="btn btn-primary" type="button">Extract text from image</button><button id="scanClear" class="btn btn-outline" type="button">Clear file</button></div>
+            <p class="muted small-text">Images and PDFs are processed in your browser when OCR support is available. This preview is not a substitute for checking extracted text.</p>
+            <div id="scanOutput" class="output-panel hidden" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section id="view-games" class="view">
+          <div class="page-intro"><span class="eyebrow">PRACTISE THROUGH PLAY</span><h2>Learning games</h2><p>Try a quick challenge and build your problem-solving skills.</p></div>
+          <div class="game-layout">
+            <div class="panel game-panel"><div class="game-top"><span class="game-pill">NUMBER SPRINT</span><span id="gameRound" class="muted">Question 1</span></div><h2 id="gameQuestion">Ready for a challenge?</h2><div id="gameAnswers" class="answer-grid"></div><p id="gameFeedback" class="feedback" aria-live="polite"></p><button id="nextQuestion" class="btn btn-primary" type="button">Start challenge</button></div>
+            <div class="panel"><span class="eyebrow">YOUR GAME STATS</span><div class="mini-stat"><span>Correct answers</span><strong id="correctCount">0</strong></div><div class="mini-stat"><span>Game XP</span><strong id="gameXP">0</strong></div><div class="mini-stat"><span>Best streak</span><strong id="bestStreak">0</strong></div><p class="muted small-text">Points are saved to your learning profile after sign-in.</p></div>
+          </div>
+        </section>
+
+        <section id="view-exams" class="view">
+          <div class="page-intro"><span class="eyebrow">CHECK YOUR UNDERSTANDING</span><h2>Practice exams</h2><p>Answer each question, submit once and review your result.</p></div>
+          <form id="examForm" class="panel exam-panel"><div class="section-heading"><div><h3>General knowledge starter quiz</h3><p class="muted">5 questions · One answer per question</p></div><span class="game-pill">PRACTICE</span></div><div id="examQuestions"></div><button id="submitExam" class="btn btn-primary" type="submit">Submit answers</button><button id="retryExam" class="btn btn-outline hidden" type="button">Try again</button><div id="examResult" class="output-panel hidden" aria-live="polite"></div></form>
+        </section>
+
+        <section id="view-planner" class="view">
+          <div class="page-intro"><span class="eyebrow">MAKE TIME FOR WHAT MATTERS</span><h2>Study planner</h2><p>Create study tasks, set a date and tick them off when complete.</p></div>
+          <div class="planner-layout">
+            <form id="taskForm" class="panel form-panel"><h3>Add a study task</h3><div class="field"><label for="taskTitle">Task title</label><input id="taskTitle" maxlength="120" required placeholder="e.g. Revise fractions"></div><div class="form-row"><div class="field"><label for="taskDate">Due date</label><input id="taskDate" type="date" required></div><div class="field"><label for="taskSubject">Subject</label><input id="taskSubject" maxlength="60" placeholder="Mathematics"></div></div><button class="btn btn-primary btn-full" type="submit">Add task</button></form>
+            <section class="panel"><div class="section-heading"><div><h3>Your tasks</h3><p class="muted" id="taskCount">0 tasks</p></div><select id="taskFilter" aria-label="Filter tasks"><option value="all">All tasks</option><option value="open">Incomplete</option><option value="done">Completed</option></select></div><div id="taskList" class="task-list"></div></section>
+          </div>
+        </section>
+
+        <section id="view-classroom" class="view">
+          <div class="page-intro"><span class="eyebrow">LEARN TOGETHER</span><h2>Classroom</h2><p>Space for assignments, classroom learning and shared progress.</p></div>
+          <div class="notice notice-info"><strong>Classroom access</strong><p>Shared classrooms need approved teacher accounts and secure membership rules. Do not post private details or personal contact information.</p></div>
+          <div class="feature-grid">
+            <article class="feature-card static-card"><span class="feature-icon lavender">▤</span><strong>Assignments</strong><small>Class tasks and deadlines will appear here when classroom services are connected.</small></article>
+            <article class="feature-card static-card"><span class="feature-icon mint">▥</span><strong>Teacher studio</strong><small>Prepare lessons and classroom resources with an approved teacher account.</small></article>
+            <article class="feature-card static-card"><span class="feature-icon peach">◎</span><strong>Learning progress</strong><small>Shared progress is only available to authorised classroom members.</small></article>
+          </div>
+        </section>
+
+        <section id="view-community" class="view">
+          <div class="page-intro"><span class="eyebrow">SAFE LEARNING</span><h2>Community & safety</h2><p>Learning should be welcoming, respectful and safe for everyone.</p></div>
+          <div class="notice notice-warning"><strong>Community features are not live yet</strong><p>Public rooms, chat, team challenges and moderation require a secure backend and trained moderation processes. No public chat is enabled in this version.</p></div>
+          <div class="content-grid">
+            <article class="panel"><span class="feature-icon lavender">♡</span><h3>Privacy first</h3><p class="muted">Keep your password private. Avoid sharing your address, phone number, school schedule or other sensitive information.</p></article>
+            <article class="panel"><span class="feature-icon mint">⚑</span><h3>Respectful learning</h3><p class="muted">Be kind, credit other people's work and report unsafe behaviour to a trusted adult or platform administrator.</p></article>
+          </div>
+        </section>
+
+        <section id="view-career" class="view">
+          <div class="page-intro"><span class="eyebrow">BUILD SKILLS FOR THE FUTURE</span><h2>Skills & careers</h2><p>Explore useful skills and start building practical experience.</p></div>
+          <div id="careerGrid" class="feature-grid"></div>
+        </section>
+
+        <section id="view-portfolio" class="view">
+          <div class="page-intro"><span class="eyebrow">SHOW WHAT YOU CAN DO</span><h2>My portfolio</h2><p>Record projects, ideas and skills you are developing.</p></div>
+          <div class="planner-layout">
+            <form id="projectForm" class="panel form-panel"><h3>Add a project</h3><div class="field"><label for="projectName">Project name</label><input id="projectName" maxlength="100" required placeholder="My first website"></div><div class="field"><label for="projectDesc">What did you build or learn?</label><textarea id="projectDesc" rows="4" maxlength="1000" placeholder="Describe your project…"></textarea></div><button class="btn btn-primary btn-full" type="submit">Save project</button></form>
+            <section class="panel"><div class="section-heading"><div><h3>My projects</h3><p class="muted">Your personal showcase</p></div></div><div id="projectList" class="project-list"></div></section>
+          </div>
+        </section>
+
+        <section id="view-rewards" class="view">
+          <div class="page-intro"><span class="eyebrow">CELEBRATE YOUR PROGRESS</span><h2>Achievements</h2><p>Rewards reflect practice and consistency, not comparison with other learners.</p></div>
+          <div class="stats-grid"><article class="stat-card"><span class="stat-icon purple">✦</span><div><p>Total XP</p><strong id="rewardXP">0</strong></div></article><article class="stat-card"><span class="stat-icon orange">♨</span><div><p>Study streak</p><strong id="rewardStreak">0</strong></div></article><article class="stat-card"><span class="stat-icon teal">◇</span><div><p>Badges earned</p><strong id="badgeCount">0</strong></div></article></div>
+          <div id="badgeGrid" class="feature-grid section-block"></div>
+        </section>
+
+        <section id="view-parent" class="view">
+          <div class="page-intro"><span class="eyebrow">FAMILY LEARNING SUPPORT</span><h2>Parent portal</h2><p>Support a learner's routines, wellbeing and progress.</p></div>
+          <div class="notice notice-info"><strong>Protected parent access</strong><p>Child progress is not exposed just because someone selects “parent”. Verified guardian-child linking and approved permissions must be configured before any child's private records are shown.</p></div>
+          <div class="content-grid"><article class="panel"><h3>Healthy study routines</h3><p class="muted">Encourage short, regular sessions, breaks and curiosity instead of pressure or comparisons.</p></article><article class="panel"><h3>Guardian access</h3><p class="muted" id="parentAccessText">Your current account does not have verified guardian access.</p></article></div>
+        </section>
+
+        <section id="view-teacher" class="view">
+          <div class="page-intro"><span class="eyebrow">TEACHER WORKSPACE</span><h2>Teacher studio</h2><p>Prepare learning resources and organise classroom work.</p></div>
+          <div class="notice notice-info"><strong>Teacher permissions</strong><p>Teacher access must be granted by an administrator through a trusted process. A signup selection alone cannot grant teacher privileges.</p></div>
+          <div class="panel"><h3>Lesson draft notes</h3><p class="muted">Draft a lesson outline locally while classroom publishing is being configured.</p><div class="field"><label for="teacherDraft">Lesson outline</label><textarea id="teacherDraft" rows="5" maxlength="4000" placeholder="Learning objective, explanation, activity and assessment…"></textarea></div><button id="saveTeacherDraft" class="btn btn-primary" type="button">Save draft in this browser</button><p class="muted small-text">This draft is local to this browser and is not a shared classroom resource.</p></div>
+        </section>
+
+        <section id="view-admin" class="view">
+          <div class="page-intro"><span class="eyebrow">PLATFORM MANAGEMENT</span><h2>Administration</h2><p>Protected controls for authorised platform administrators.</p></div>
+          <div class="notice notice-warning"><strong>Restricted area</strong><p>This interface does not create admin privileges. Secure admin access requires a trusted role assignment and matching Firestore rules.</p></div>
+          <div id="adminContent" class="panel"><h3>Admin access required</h3><p class="muted">Sign in with an account that has been granted the admin role by the project owner.</p></div>
+        </section>
+
+        <section id="view-settings" class="view">
+          <div class="page-intro"><span class="eyebrow">MAKE EDU SPARK YOURS</span><h2>Settings</h2><p>Manage your profile preferences and personal data.</p></div>
+          <form id="settingsForm" class="panel form-panel">
+            <h3>Learning preferences</h3>
+            <div class="field"><label for="displayName">Display name</label><input id="displayName" maxlength="60" required></div>
+            <div class="form-row"><div class="field"><label for="profileLevel">Learning level</label><select id="profileLevel"><option>Early Learning</option><option>Primary</option><option>Middle</option><option>Secondary</option><option>College</option><option>University</option><option>Skills</option></select></div><div class="field"><label for="profileLanguage">Preferred language</label><select id="profileLanguage"><option>English</option><option>Urdu</option><option>Simple English</option></select></div></div>
+            <div class="field"><label for="profileCurriculum">Learning track</label><select id="profileCurriculum"><option>International</option><option>Pakistan</option><option>UK</option><option>US</option><option>Skills</option><option>Other</option></select><small class="muted">This preference helps filter content; it does not change your selected learning level.</small></div>
+            <button class="btn btn-primary" type="submit">Save preferences</button>
           </form>
-        </article>
-        <article class="panel">
-          <h3>Data & privacy</h3>
-          <p class="muted">Demo data is saved in this browser. It does not sync
-            between devices in this preview.</p>
-          <button class="button button-outline full-width" id="exportData">Export my data</button>
-          <button class="button button-danger-outline full-width top-gap" id="resetData">Reset demo data</button>
-          <p class="tiny muted">Real launch needs authenticated accounts, secure
-            database rules and account deletion/export controls.</p>
-        </article>
+          <div class="panel settings-actions"><h3>Your data</h3><p class="muted">Export a copy of your app data or clear this browser's saved data.</p><div class="button-row"><button id="exportData" class="btn btn-outline" type="button">Export my data</button><button id="resetData" class="btn btn-danger" type="button">Clear local data</button></div><p class="small-text muted">Clearing local data does not delete your Firebase account. Cloud data must be deleted separately through an authenticated account deletion flow.</p></div>
+          <div class="panel"><h3>Account & sync</h3><p id="syncStatus" class="muted">Checking account…</p><button id="forceSync" class="btn btn-outline" type="button">Sync now</button></div>
+        </section>
       </div>
-    </section>
 
-    <!-- OWNER ADMIN PREVIEW -->
-    <section class="view" id="view-admin">
-      <div class="page-heading">
-        <p class="eyebrow">RESTRICTED WORKSPACE</p>
-        <h1>Owner <span class="accent">Admin.</span></h1>
-        <p class="muted">Platform operations preview.</p>
-      </div>
-      <div class="notice notice-warning">
-        <b>Important:</b> this is a UI preview, not a secured admin system.
-        Real admin access must be verified by a trusted backend.
-      </div>
-      <div class="stats-grid">
-        <article class="stat-card"><p>Demo users</p><strong>1,248</strong><small>Illustrative only</small></article>
-        <article class="stat-card"><p>Active today</p><strong>326</strong><small>Illustrative only</small></article>
-        <article class="stat-card"><p>AI requests</p><strong>8,420</strong><small>Illustrative only</small></article>
-        <article class="stat-card"><p>System status</p><strong class="good-text">Preview</strong><small>Not live monitoring</small></article>
-      </div>
-      <div class="admin-grid">
-        <article class="panel">
-          <h3>Platform operations</h3>
-          <ul class="admin-list">
-            <li><span>Account and role management</span><span class="pill">Backend needed</span></li>
-            <li><span>Content review queue</span><span class="pill">Planned</span></li>
-            <li><span>AI usage and cost limits</span><span class="pill">Backend needed</span></li>
-            <li><span>Payments and subscriptions</span><span class="pill">Not connected</span></li>
-            <li><span>Audit logs and appeals</span><span class="pill">Planned</span></li>
-            <li><span>Backups and recovery</span><span class="pill">Planned</span></li>
-          </ul>
-        </article>
-        <article class="panel">
-          <h3>Security checklist</h3>
-          <div class="mini-stat"><span>Admin MFA</span><b>Required</b></div>
-          <div class="mini-stat"><span>Child privacy</span><b>Protected by design</b></div>
-          <div class="mini-stat"><span>AI secrets</span><b>Server-side only</b></div>
-          <p class="muted tiny">Never collect passwords or enable unrestricted
-            access to private student content.</p>
-        </article>
-      </div>
-    </section>
+      <footer class="app-footer"><span>© <span id="yearNow"></span> EduSpark</span><span>Keep learning. Keep growing.</span><span id="appVersion">PWA · v2.0</span></footer>
+    </main>
+  </div>
 
-    <footer class="app-footer">
-      <span>© <span id="yearNow"></span> EduSpark</span>
-      <span>Built for curious minds, everywhere.</span>
-      <button class="text-button" data-go="settings">Privacy & settings</button>
-    </footer>
-  </main>
-</div>
+  <div id="lessonModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card"><button id="closeLesson" class="icon-btn modal-close" type="button" aria-label="Close lesson">×</button><span id="modalCategory" class="game-pill">LESSON</span><h2 id="modalTitle">Lesson title</h2><p id="modalMeta" class="muted"></p><div id="modalBody" class="lesson-body"></div><div id="modalQuiz" class="modal-quiz"></div><div class="button-row"><button id="completeLesson" class="btn btn-primary" type="button">Mark lesson complete</button><button id="closeLessonBottom" class="btn btn-outline" type="button">Close</button></div></div>
+  </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script type="module" src="app.js"></script>
+  <script type="module" src="./app.js"></script>
 </body>
 </html>
