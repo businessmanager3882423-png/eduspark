@@ -433,6 +433,7 @@ function showApp() {
   $("yearNow").textContent = new Date().getFullYear();
   $("sidebarName").textContent = data.profile.name || "Student";
   $("profileAvatar").textContent = (data.profile.name || "S").trim().charAt(0).toUpperCase();
+  fillSettings();
   applyRoleVisibility();
   renderLessons();
   renderTasks();
