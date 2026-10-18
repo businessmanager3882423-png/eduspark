@@ -10,28 +10,10 @@
       <stop offset="100%" stop-color="#1eae91"/>
     </linearGradient>
   </defs>
-
   <rect width="512" height="512" rx="112" fill="url(#bg)"/>
-
-  <path d="M90 180 L256 105 L422 180 L256 255 Z"
-        fill="url(#accent)"/>
-
-  <path d="M145 210 V285 C145 340 200 374 256 374
-           C312 374 367 340 367 285 V210
-           L256 260 Z"
-        fill="#f3f8ff"/>
-
-  <path d="M390 194 V290"
-        stroke="#5ef0cc"
-        stroke-width="16"
-        stroke-linecap="round"/>
-
+  <path d="M90 180 256 105 422 180 256 255Z" fill="url(#accent)"/>
+  <path d="M145 210V285C145 340 200 374 256 374S367 340 367 285V210L256 260Z" fill="#f3f8ff"/>
+  <path d="M390 194V290" stroke="#5ef0cc" stroke-width="16" stroke-linecap="round"/>
   <circle cx="390" cy="315" r="15" fill="#5ef0cc"/>
-
-  <path d="M205 291 L242 326 L310 255"
-        fill="none"
-        stroke="#1eae91"
-        stroke-width="19"
-        stroke-linecap="round"
-        stroke-linejoin="round"/>
+  <path d="m205 291 37 35 68-71" fill="none" stroke="#1eae91" stroke-width="19" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
